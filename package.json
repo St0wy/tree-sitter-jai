@@ -38,8 +38,8 @@
   ],
   "tree-sitter": [
     {
-      "scope": "source.Jai",
-      "injection-regex": "^Jai$"
+      "scope": "source.jai",
+      "injection-regex": "^jai$"
     }
   ]
 }

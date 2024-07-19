@@ -16,7 +16,7 @@ module.exports = grammar({
 		var_declaration: $ => seq(
 			commaSep1($.expression),
 			":",
-			seq($.type),
+			seq($.type, optional(seq(choice('=', ':'), commaSep1($.expression)))),
 		),
 
 		expression: $ => prec.left(choice(

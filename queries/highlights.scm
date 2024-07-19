@@ -1,9 +1,9 @@
 ; Preprocs
 
-[
-  (calling_convention)
-  (tag)
-] @keyword.directive
+;[
+;  (calling_convention)
+;  (tag)
+;] @keyword.directive
 
 ; Includes
 

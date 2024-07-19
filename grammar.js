@@ -322,7 +322,6 @@ module.exports = grammar({
 				seq(optional('-'), binary),
 			));
 		},
-		float: $ => /\d+\.\d+/,
 
 		_separator: $ => choice(
 			$._newline,

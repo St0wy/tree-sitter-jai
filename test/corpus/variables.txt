@@ -112,3 +112,18 @@ is_real :: true;
     (boolean)
   )
 )
+
+==================
+Constant float
+==================
+
+PI :: 3.1416
+
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (float)
+  )
+)

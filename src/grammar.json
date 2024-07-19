@@ -1771,10 +1771,6 @@
         ]
       }
     },
-    "float": {
-      "type": "PATTERN",
-      "value": "\\d+\\.\\d+"
-    },
     "_separator": {
       "type": "CHOICE",
       "members": [

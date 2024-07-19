@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-Jai
+module github.com/tree-sitter/tree-sitter-jai
 
 go 1.22
 

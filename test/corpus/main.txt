@@ -1,0 +1,15 @@
+==================
+Main function
+:skip
+==================
+
+main :: () { }
+
+---
+
+(source_file
+  (function_definition
+    (identifier)
+    (parameter_list)
+  )
+)

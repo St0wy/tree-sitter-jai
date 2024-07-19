@@ -1,4 +1,4 @@
-package tree_sitter_Jai
+package tree_sitter_jai
 
 // #cgo CFLAGS: -std=c11 -fPIC
 // #include "../../src/parser.c"

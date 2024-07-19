@@ -1,0 +1,20 @@
+==================
+Uninitialized variable
+==================
+
+x: u32;
+
+---
+
+(source_file
+  (declaration
+    (var_declaration
+      (expression
+        (identifier)
+      )
+      (type
+        (identifier)
+      )
+    )
+  )
+)

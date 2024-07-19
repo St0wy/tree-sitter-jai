@@ -42,7 +42,8 @@
       "injection-regex": "^jai$",
       "file-types": [
         "jai"
-      ]
+      ],
+      "highlights": "queries/highlights.scm"
     }
   ]
 }

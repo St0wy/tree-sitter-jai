@@ -1,0 +1,75 @@
+==================
+Procedure with unary negation
+==================
+
+negate :: (a: s64) -> s64 { 
+  return -a;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters
+        (parameter
+          (identifier)
+          (type
+            (identifier)
+          )
+        )
+      )
+      (type
+        (identifier)
+      )
+      (block
+        (return_statement
+          (unary_expression
+            (identifier)
+          )
+        )
+      )
+    )
+  )
+)
+
+==================
+Procedure with multiply and add
+==================
+
+multiply_add :: (a: s64) -> s64 { 
+  return a * a + a;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters
+        (parameter
+          (identifier)
+          (type
+            (identifier)
+          )
+        )
+      )
+      (type
+        (identifier)
+      )
+      (block
+        (return_statement
+          (binary_expression
+            (binary_expression
+              (identifier)
+              (identifier)
+            )
+            (identifier)
+          )
+        )
+      )
+    )
+  )
+)

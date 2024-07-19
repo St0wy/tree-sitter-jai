@@ -1,16 +1,115 @@
+// Grammar heavily based on the one from Odin : https://github.com/tree-sitter-grammars/tree-sitter-odin
+
+const PREC = {
+	PARENTHESES: -1,
+	ASSIGNMENT: 1,
+	TERNARY: 2,
+	LOGICAL_OR: 3,
+	LOGICAL_AND: 4,
+	COMPARE: 5,
+	EQUALITY: 6,
+	BITWISE_OR: 7,
+	BITWISE_XOR: 8,
+	BITWISE_AND: 9,
+	BITWISE_AND_NOT: 10,
+	SHIFT: 11,
+	ADD: 12,
+	MULTIPLY: 13,
+	CAST: 14,
+	IN: 15,
+	UNARY: 16,
+	CALL: 17,
+	MEMBER: 18,
+	MATRIX: 19,
+	VARIADIC: 20,
+};
+
 module.exports = grammar({
 	name: "jai",
+
+	externals: $ => [
+		$._newline,
+		$._backslash,
+		$._nl_comma,
+		$.float,
+		$.block_comment,
+		'{',
+		'"',
+	],
+
+	extras: $ => [
+		$.comment,
+		$.block_comment,
+		/\s/,
+		$._backslash,
+	],
+
+	supertypes: $ => [
+		$.declaration,
+		$.expression,
+		$.literal,
+		$.statement,
+	],
 
 	rules: {
 		source_file: $ => seq(repeat(seq($.declaration, $._separator)), optional($.declaration)),
 
 		declaration: $ => choice(
-			// $.variable_definition,
+			$.procedure_declaration,
+			$.variable_declaration,
 			$.var_declaration,
-			// $.importOrLoad,
-			// $.function_definition,
-			// $.comment,
-			// $._expression_no_tag,
+			$.const_declaration,
+			$.expression
+		),
+
+		procedure_declaration: $ => seq(
+			$.expression,
+			'::',
+			$.procedure,
+		),
+
+		procedure: $ => prec.right(seq(
+			$.parameters,
+			optional(seq(
+				'->',
+				choice($.type, $.named_type),
+			)),
+			optional($.block),
+		)),
+
+		block: $ => prec(2, seq(
+			'{',
+			sep($.statement, $._separator),
+			'}',
+		)),
+
+		parameters: $ => seq(
+			'(',
+			optional(seq(
+				commaSep1(choice($.parameter, $.default_parameter)),
+				optional(','),
+			)),
+			')',
+		),
+		parameter: $ => prec.right(seq(
+			seq(
+				choice(
+					$.identifier,
+					// $.variadic_type,
+					// $.array_type,
+					// $.pointer_type,
+					// $.field_type,
+					// $._procedure_type,
+				),
+				':',
+				$.type,
+				optional(seq('=', $.expression))
+			),
+		)),
+		default_parameter: $ => seq(
+			$.identifier,
+			':=',
+			$.expression,
 		),
 
 		var_declaration: $ => seq(
@@ -19,14 +118,16 @@ module.exports = grammar({
 			seq($.type, optional(seq(choice('=', ':'), commaSep1($.expression)))),
 		),
 
-		expression: $ => prec.left(choice(
-			$._expression_no_tag,
-			$.tag,
-		)),
+		variable_declaration: $ => seq(
+			commaSep1($.expression),
+			':=',
+			commaSep1($.expression),
+			optional(','),
+		),
 
-		_expression_no_tag: $ => choice(
-			// $.unary_expression,
-			// $.binary_expression,
+		expression: $ => choice(
+			$.unary_expression,
+			$.binary_expression,
 			// $.ternary_expression,
 			// $.call_expression,
 			// $.selector_call_expression,
@@ -46,9 +147,86 @@ module.exports = grammar({
 			// $.map_type,
 			// $.distinct_type,
 			// $.matrix_type,
-			$.literal,
-			'?',
+			$.literal
 		),
+
+		unary_expression: $ => prec.right(PREC.UNARY, seq(
+			field('operator', choice('+', '-', '~', '!', '&')),
+			field('argument', $.expression),
+		)),
+
+		binary_expression: $ => {
+			const table = [
+				['||', PREC.LOGICAL_OR],
+				['or_else', PREC.LOGICAL_OR],
+				['&&', PREC.LOGICAL_AND],
+				['>', PREC.COMPARE],
+				['>=', PREC.COMPARE],
+				['<=', PREC.COMPARE],
+				['<', PREC.COMPARE],
+				['==', PREC.EQUALITY],
+				['!=', PREC.EQUALITY],
+				['~=', PREC.EQUALITY],
+				['|', PREC.BITWISE_OR],
+				['~', PREC.BITWISE_XOR],
+				['&', PREC.BITWISE_AND],
+				['&~', PREC.BITWISE_AND_NOT],
+				['<<', PREC.SHIFT],
+				['>>', PREC.SHIFT],
+				['+', PREC.ADD],
+				['-', PREC.ADD],
+				['*', PREC.MULTIPLY],
+				['/', PREC.MULTIPLY],
+				['%', PREC.MULTIPLY],
+				['%%', PREC.MULTIPLY],
+			];
+
+			return choice(...table.map(([operator, precedence]) => {
+				return prec.left(precedence, seq(
+					field('left', $.expression),
+					// @ts-ignore
+					field('operator', operator),
+					field('right', $.expression),
+				));
+			}));
+		},
+
+		statement: $ => prec(1, choice(
+			$.procedure_declaration,
+			// $.overloaded_procedure_declaration,
+			// $.struct_declaration,
+			// $.enum_declaration,
+			// $.union_declaration,
+			// $.bit_field_declaration,
+			$.const_declaration,
+			// $.import_declaration,
+			// $.assignment_statement,
+			// $.update_statement,
+			// $.if_statement,
+			// $.when_statement,
+			// $.for_statement,
+			// $.switch_statement,
+			// $.defer_statement,
+			// $.break_statement,
+			// $.continue_statement,
+			// $.fallthrough_statement,
+			// $.label_statement,
+			// $.using_statement,
+			$.return_statement,
+			$.expression,
+			$.var_declaration,
+			// $.foreign_block,
+			// $.tagged_block,
+			$.block,
+		)),
+
+		return_statement: $ => prec.right(1, seq(
+			'return',
+			optional(seq(
+				commaExternalSep1(choice($.expression /*, $._procedure_type */), $),
+				optional(','),
+			)),
+		)),
 
 		literal: $ => prec.right(choice(
 			// $.struct,
@@ -92,7 +270,7 @@ module.exports = grammar({
 
 		uninitialized: _ => '---',
 
-		tag: _ => token(seq(/#[a-zA-Z_][a-zA-Z0-9_]*/, optional(seq('(', /\w*/, ')')))),
+		// tag: _ => token(seq(/#[a-zA-Z_][a-zA-Z0-9_]*/, optional(seq('(', /\w*/, ')')))),
 
 		type: $ => prec.right(choice(
 			$.identifier,
@@ -118,6 +296,17 @@ module.exports = grammar({
 			// '...',
 		)),
 
+		named_type: $ => prec.right(seq($.identifier, ':', $.type, optional(seq('=', $.literal)))),
+
+		const_declaration: $ => seq(
+			commaSep1($.expression),
+			'::',
+			// optional($.tag),
+			commaSep1(
+				$.expression
+			),
+		),
+
 		identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
 		number: _ => {
 			const decimal = /[0-9][0-9_]*[ijk]?/;
@@ -136,7 +325,7 @@ module.exports = grammar({
 		float: $ => /\d+\.\d+/,
 
 		_separator: $ => choice(
-			// $._newline,
+			$._newline,
 			';',
 		),
 
@@ -154,6 +343,34 @@ module.exports = grammar({
  */
 function commaSep1(rule) {
 	return sep1(rule, ',');
+}
+
+/**
+ * Creates a rule to match one or more of the rules separated by a comma
+ *
+ * @param {Rule} rule
+ *
+ * @param {GrammarSymbols<any>} $
+ *
+ * @return {SeqRule}
+ *
+ */
+function commaExternalSep1(rule, $) {
+	return sep1(rule, choice(',', alias($._nl_comma, ',')));
+}
+
+/**
+ * Creates a rule to match zero or more occurrences of `rule` separated by `sep`
+ *
+ * @param {RegExp|Rule|String} rule
+ *
+ * @param {RegExp|Rule|String} sep
+ *
+ * @return {ChoiceRule}
+ *
+ */
+function sep(rule, sep) {
+	return optional(seq(rule, repeat(seq(sep, optional(rule)))));
 }
 
 /**

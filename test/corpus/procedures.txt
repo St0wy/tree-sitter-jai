@@ -1,0 +1,139 @@
+==================
+Main procedure
+==================
+
+main :: () { }
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block)
+    )
+  )
+)
+
+==================
+Procedure with params
+==================
+
+add :: (a: s32, b: s32) { }
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters
+        (parameter
+          (identifier)
+          (type
+            (identifier)
+          )
+        )
+        (parameter
+          (identifier)
+          (type
+            (identifier)
+          )
+        )
+      )
+      (block)
+    )
+  )
+)
+
+==================
+Procedure with return type
+==================
+
+procedure :: () -> s32 { }
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (type
+        (identifier)
+      )
+      (block)
+    )
+  )
+)
+
+==================
+Procedure with return statement
+==================
+
+procedure :: () -> s32 { 
+  return 0;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (type
+        (identifier)
+      )
+      (block
+        (return_statement
+          (number)
+        )
+      )
+    )
+  )
+)
+
+==================
+Procedure with parameters and a return statement with an add
+==================
+
+add :: (a: s64, b: s64) -> s64 { 
+  return a + b;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters
+        (parameter
+          (identifier)
+          (type
+            (identifier)
+          )
+        )
+        (parameter
+          (identifier)
+          (type
+            (identifier)
+          )
+        )
+      )
+      (type
+        (identifier)
+      )
+      (block
+        (return_statement
+          (binary_expression
+            (identifier)
+            (identifier)
+          )
+        )
+      )
+    )
+  )
+)

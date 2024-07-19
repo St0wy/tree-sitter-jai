@@ -7,14 +7,10 @@ x: u32;
 ---
 
 (source_file
-  (declaration
-    (var_declaration
-      (expression
-        (identifier)
-      )
-      (type
-        (identifier)
-      )
+  (var_declaration
+    (identifier)
+    (type
+      (identifier)
     )
   )
 )
@@ -28,19 +24,91 @@ x: u32 = 1;
 ---
 
 (source_file
-  (declaration
-    (var_declaration
-      (expression
-        (identifier)
-      )
-      (type
-        (identifier)
-      )
-      (expression
-        (literal
-          (number)
-        )
-      )
+  (var_declaration
+    (identifier)
+    (type
+      (identifier)
     )
+    (number)
+  )
+)
+
+==================
+Initialized variable without type
+==================
+
+x := 1;
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (number)
+  )
+)
+
+==================
+Constant variable with type
+==================
+
+x: u32 : 1;
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type
+      (identifier)
+    )
+    (number)
+  )
+)
+
+==================
+Constant variable without type
+==================
+
+x :: 1;
+
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (number)
+  )
+)
+
+==================
+Constant string
+==================
+
+x :: "hello";
+
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (string
+      (string_content)
+    )
+  )
+)
+
+==================
+Constant boolean
+==================
+
+is_real :: true;
+
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (boolean)
   )
 )

@@ -26,3 +26,71 @@ Address :: struct {
     )
   )
 )
+
+
+==================
+Field with default value at declaration
+==================
+
+Address :: struct {
+    street_number: int = 16;
+    street_name: string = "Rue des coquelicots";
+}
+
+---
+
+(source_file
+  (struct_declaration
+    (identifier)
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+      (number)
+    )
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+      (string
+        (string_content)
+      )
+    )
+  )
+)
+
+==================
+Field with default value outside declaration
+==================
+
+Address :: struct {
+    street_number: int;
+    street_number = 16;
+    street_name: string;
+}
+
+---
+
+(source_file
+  (struct_declaration
+    (identifier)
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+    )
+    (default_value_assignment
+      (identifier)
+      (number)
+    )
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+    )
+  )
+)

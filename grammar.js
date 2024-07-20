@@ -51,6 +51,8 @@ module.exports = grammar({
 		$.statement,
 	],
 
+	word: $ => $.identifier,
+
 	rules: {
 		source_file: $ => seq(repeat(seq($.declaration, $._separator)), optional($.declaration)),
 
@@ -64,7 +66,7 @@ module.exports = grammar({
 		),
 
 		procedure_declaration: $ => seq(
-			$.expression,
+			$.identifier,
 			'::',
 			$.procedure,
 		),
@@ -114,30 +116,42 @@ module.exports = grammar({
 		),
 
 		struct_declaration: $ => seq(
-			$.expression,
+			$.identifier,
 			'::',
 			'struct',
 			'{',
 			optional(repeat(
-				seq($.field, ';'),
+				// TODO add consts
+				seq(choice($.field, $.default_value_assignment), ';'),
 			)),
 			'}',
 		),
+		field: $ => prec(2,prec.right(choice(
+			// Field is either `identifier : type [: or =] something;` ...
+			seq(commaSep1($.identifier), ':', seq($.type, optional(seq(choice('=', ':'), commaSep1($.expression))))),
+			// ...or `identifier := something`.
+			seq(commaSep1($.identifier), ':=', commaSep1($.expression), optional(','))
+		))),
+		default_value_assignment: $ => seq(
+			commaSep1($.identifier),
+			'=',
+			commaSep1($.expression),
+		),
 
 		var_declaration: $ => seq(
-			commaSep1($.expression),
+			commaSep1($.identifier),
 			":",
 			seq($.type, optional(seq(choice('=', ':'), commaSep1($.expression)))),
 		),
 
 		variable_declaration: $ => seq(
-			commaSep1($.expression),
+			commaSep1($.identifier),
 			':=',
 			commaSep1($.expression),
 			optional(','),
 		),
 
-		expression: $ => choice(
+		expression: $ => prec.right(choice(
 			$.unary_expression,
 			$.binary_expression,
 			// $.ternary_expression,
@@ -160,7 +174,7 @@ module.exports = grammar({
 			// $.distinct_type,
 			// $.matrix_type,
 			$.literal
-		),
+		)),
 
 		unary_expression: $ => prec.right(PREC.UNARY, seq(
 			field('operator', choice('+', '-', '~', '!', '&')),
@@ -204,7 +218,7 @@ module.exports = grammar({
 		},
 
 		call_expression: $ => prec.left(PREC.CALL, seq(
-			field('function', $.expression),
+			field('function', $.identifier),
 			'(',
 			optional(seq(
 				commaSep1(seq(
@@ -216,12 +230,6 @@ module.exports = grammar({
 			')',
 		)),
 
-		field: $ => prec.right(seq(
-			commaSep1($.identifier),
-			':',
-			$.type,
-		)),
-
 		statement: $ => prec(1, choice(
 			$.procedure_declaration,
 			// $.overloaded_procedure_declaration,
@@ -231,7 +239,7 @@ module.exports = grammar({
 			// $.bit_field_declaration,
 			$.const_declaration,
 			// $.import_declaration,
-			// $.assignment_statement,
+			$.assignment_statement,
 			// $.update_statement,
 			// $.if_statement,
 			// $.when_statement,
@@ -252,7 +260,7 @@ module.exports = grammar({
 		)),
 
 		assignment_statement: $ => prec(PREC.ASSIGNMENT, seq(
-			commaSep1($.expression),
+			commaSep1($.identifier),
 			choice('=', ':='),
 			commaSep1(choice($.expression, $.procedure)),
 		)),
@@ -307,8 +315,6 @@ module.exports = grammar({
 
 		uninitialized: _ => '---',
 
-		// tag: _ => token(seq(/#[a-zA-Z_][a-zA-Z0-9_]*/, optional(seq('(', /\w*/, ')')))),
-
 		type: $ => prec.right(choice(
 			$.identifier,
 			// $.pointer_type,
@@ -343,7 +349,7 @@ module.exports = grammar({
 		named_type: $ => prec.right(seq($.identifier, ':', $.type, optional(seq('=', $.literal)))),
 
 		const_declaration: $ => seq(
-			commaSep1($.expression),
+			commaSep1($.identifier),
 			'::',
 			// optional($.tag),
 			commaSep1(

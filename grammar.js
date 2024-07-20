@@ -121,12 +121,11 @@ module.exports = grammar({
 			'struct',
 			'{',
 			optional(repeat(
-				// TODO add consts
-				seq(choice($.field, $.default_value_assignment), ';'),
+				seq(choice($.field, $.default_value_assignment, $.const_declaration), ';'),
 			)),
 			'}',
 		),
-		field: $ => prec(2,prec.right(choice(
+		field: $ => prec(2, prec.right(choice(
 			// Field is either `identifier : type [: or =] something;` ...
 			seq(commaSep1($.identifier), ':', seq($.type, optional(seq(choice('=', ':'), commaSep1($.expression))))),
 			// ...or `identifier := something`.
@@ -274,7 +273,7 @@ module.exports = grammar({
 		)),
 
 		literal: $ => prec.right(choice(
-			// $.struct,
+			$.struct,
 			$.float,
 			$.number,
 			$.string,
@@ -282,6 +281,29 @@ module.exports = grammar({
 			$.boolean,
 			$.null,
 			$.uninitialized,
+		)),
+
+		struct: $ => seq(
+			optional(
+				choice(
+					seq('(', $.type, ')'),
+					$.type,
+				),
+			),
+			'.',
+			'{',
+			optional(seq(
+				commaSep1($.struct_field),
+				optional(','),
+			)),
+			'}',
+		),
+		struct_field: $ => prec.right(seq(
+			$.expression,
+			optional(seq(
+				'=',
+				choice($.expression/*, $._procedure_type*/),
+			)),
 		)),
 
 		string: $ => $._string_literal,

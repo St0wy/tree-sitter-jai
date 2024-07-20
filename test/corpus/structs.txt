@@ -94,3 +94,79 @@ Address :: struct {
     )
   )
 )
+
+
+==================
+Struct with constant in it
+==================
+
+Address :: struct {
+    street_number: int;
+    street_name: string;
+    BEST_NAME :: "Strite";
+}
+
+---
+
+(source_file
+  (struct_declaration
+    (identifier)
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+    )
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+    )
+    (const_declaration
+      (identifier)
+      (string
+        (string_content)
+      )
+    )
+  )
+)
+
+
+==================
+Struct litteral
+==================
+
+address := Address.{16, "Rue des coquelicots"};
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (struct
+      (type (identifier))
+      (struct_field (number))
+      (struct_field (string (string_content)))
+    )
+  )
+)
+
+==================
+Struct litteral without type
+==================
+
+address: Address = .{16, "Rue des coquelicots"};
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type (identifier))
+    (struct
+      (struct_field (number))
+      (struct_field (string (string_content)))
+    )
+  )
+)

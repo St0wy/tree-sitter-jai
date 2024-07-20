@@ -80,6 +80,10 @@
         "named": true
       },
       {
+        "type": "struct",
+        "named": true
+      },
+      {
         "type": "uninitialized",
         "named": true
       }
@@ -562,6 +566,25 @@
     }
   },
   {
+    "type": "struct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "struct_field",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "struct_declaration",
     "named": true,
     "fields": {},
@@ -569,6 +592,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "const_declaration",
+          "named": true
+        },
         {
           "type": "default_value_assignment",
           "named": true
@@ -579,6 +606,21 @@
         },
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -737,6 +779,10 @@
   },
   {
     "type": "->",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {

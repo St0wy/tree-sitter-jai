@@ -56,6 +56,7 @@ module.exports = grammar({
 
 		declaration: $ => choice(
 			$.procedure_declaration,
+			$.struct_declaration,
 			$.variable_declaration,
 			$.var_declaration,
 			$.const_declaration,
@@ -112,6 +113,17 @@ module.exports = grammar({
 			$.expression,
 		),
 
+		struct_declaration: $ => seq(
+			$.expression,
+			'::',
+			'struct',
+			'{',
+			optional(repeat(
+				seq($.field, ';'),
+			)),
+			'}',
+		),
+
 		var_declaration: $ => seq(
 			commaSep1($.expression),
 			":",
@@ -129,7 +141,7 @@ module.exports = grammar({
 			$.unary_expression,
 			$.binary_expression,
 			// $.ternary_expression,
-			// $.call_expression,
+			$.call_expression,
 			// $.selector_call_expression,
 			// $.member_expression,
 			// $.index_expression,
@@ -191,10 +203,29 @@ module.exports = grammar({
 			}));
 		},
 
+		call_expression: $ => prec.left(PREC.CALL, seq(
+			field('function', $.expression),
+			'(',
+			optional(seq(
+				commaSep1(seq(
+					field('argument', choice($.expression/*, $.array_type, $.struct_type, $.pointer_type*/, $.procedure)),
+					optional(seq('=', choice($.expression))),
+				)),
+				optional(','),
+			)),
+			')',
+		)),
+
+		field: $ => prec.right(seq(
+			commaSep1($.identifier),
+			':',
+			$.type,
+		)),
+
 		statement: $ => prec(1, choice(
 			$.procedure_declaration,
 			// $.overloaded_procedure_declaration,
-			// $.struct_declaration,
+			$.struct_declaration,
 			// $.enum_declaration,
 			// $.union_declaration,
 			// $.bit_field_declaration,
@@ -218,6 +249,12 @@ module.exports = grammar({
 			// $.foreign_block,
 			// $.tagged_block,
 			$.block,
+		)),
+
+		assignment_statement: $ => prec(PREC.ASSIGNMENT, seq(
+			commaSep1($.expression),
+			choice('=', ':='),
+			commaSep1(choice($.expression, $.procedure)),
 		)),
 
 		return_statement: $ => prec.right(1, seq(
@@ -276,7 +313,7 @@ module.exports = grammar({
 			$.identifier,
 			// $.pointer_type,
 			// $.variadic_type,
-			// $.array_type,
+			$.array_type,
 			// $.map_type,
 			// $.union_type,
 			// $.bit_set_type,
@@ -294,6 +331,13 @@ module.exports = grammar({
 			// $.polymorphic_type,
 			// $.conditional_type,
 			// '...',
+		)),
+
+		array_type: $ => prec(1, seq(
+			'[',
+			optional(seq(choice('..', $.expression))),
+			']',
+			optional($.type),
 		)),
 
 		named_type: $ => prec.right(seq($.identifier, ':', $.type, optional(seq('=', $.literal)))),

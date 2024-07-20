@@ -1,0 +1,28 @@
+==================
+Struct declaration
+==================
+
+Address :: struct {
+    street_number: int;
+    street_name:   string;
+}
+
+---
+
+(source_file
+  (struct_declaration
+    (identifier)
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+    )
+    (field
+      (identifier)
+      (type
+        (identifier)
+      )
+    )
+  )
+)

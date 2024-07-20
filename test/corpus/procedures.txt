@@ -137,3 +137,60 @@ add :: (a: s64, b: s64) -> s64 {
     )
   )
 )
+
+==================
+Calling a procedure to fill a variable
+==================
+
+a := compute();
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (call_expression
+      (identifier)
+    )
+  )
+)
+
+==================
+Calling a procedure with parameters to fill a variable
+==================
+
+a := add(1, 2);
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (call_expression
+      (identifier)
+      (number)
+      (number)
+    )
+  )
+)
+
+==================
+Calling a procedure with named parameters to fill a variable
+==================
+
+a := add(a = 1, b = 2);
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (call_expression
+      (identifier)
+      (identifier)
+      (number)
+      (identifier)
+      (number)
+    )
+  )
+)

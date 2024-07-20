@@ -127,3 +127,80 @@ PI :: 3.1416
     (float)
   )
 )
+
+==================
+Fixed-size array
+==================
+
+numbers: [10] int;
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type
+      (array_type
+        (number)
+        (type
+          (identifier)
+        )
+      )
+    )
+  )
+)
+
+==================
+Dynamic array
+==================
+
+numbers: [..] int;
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type
+      (array_type
+        (type
+          (identifier)
+        )
+      )
+    )
+  )
+)
+
+==================
+String
+==================
+
+text: string;
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type
+      (identifier)
+    )
+  )
+)
+
+==================
+Variable with string litteral
+==================
+
+text := "Hello";
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (string
+      (string_content)
+    )
+  )
+)

@@ -421,22 +421,12 @@
     "type": "if_statement",
     "named": true,
     "fields": {
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      },
       "consequence": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "block",
+            "type": "statement",
             "named": true
           }
         ]

@@ -900,11 +900,15 @@
       ]
     },
     "expression": {
-      "type": "PREC_RIGHT",
+      "type": "PREC_LEFT",
       "value": 0,
       "content": {
         "type": "CHOICE",
         "members": [
+          {
+            "type": "SYMBOL",
+            "name": "literal"
+          },
           {
             "type": "SYMBOL",
             "name": "unary_expression"
@@ -920,10 +924,6 @@
           {
             "type": "SYMBOL",
             "name": "identifier"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "literal"
           }
         ]
       }

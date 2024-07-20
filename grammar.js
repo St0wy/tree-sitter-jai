@@ -1,4 +1,6 @@
 // Grammar heavily based on the one from Odin : https://github.com/tree-sitter-grammars/tree-sitter-odin
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-nocheck
 
 const PREC = {
 	PARENTHESES: -1,
@@ -154,7 +156,7 @@ module.exports = grammar({
 			optional(','),
 		),
 
-		expression: $ => prec.right(choice(
+		expression: $ => prec.left(choice(
 			$.unary_expression,
 			$.binary_expression,
 			// $.ternary_expression,

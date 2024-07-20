@@ -75,7 +75,11 @@ module.exports = grammar({
 			$.parameters,
 			optional(seq(
 				'->',
-				choice($.type, $.named_type),
+				choice(
+					seq('(', commaSep1(choice($.type, $.named_type)), ')'),
+					commaSep1(choice($.type, $.named_type)),
+				)
+
 			)),
 			optional($.block),
 		)),
@@ -121,7 +125,7 @@ module.exports = grammar({
 			'struct',
 			'{',
 			optional(repeat(
-				seq(choice($.field, $.default_value_assignment, $.const_declaration), ';'),
+				seq(choice($.field, $.default_value_assignment, $.const_declaration), $._separator),
 			)),
 			'}',
 		),
@@ -239,8 +243,8 @@ module.exports = grammar({
 			$.const_declaration,
 			// $.import_declaration,
 			$.assignment_statement,
-			// $.update_statement,
-			// $.if_statement,
+			$.update_statement,
+			$.if_statement,
 			// $.when_statement,
 			// $.for_statement,
 			// $.switch_statement,
@@ -264,12 +268,22 @@ module.exports = grammar({
 			commaSep1(choice($.expression, $.procedure)),
 		)),
 
+		update_statement: $ => seq(
+			commaSep1($.identifier),
+			choice('+=', '-=', '*=', '/=', '%=', '&=', '|=', '^=', '<<=', '>>=', '||=', '&&=', '&~='),
+			commaSep1($.expression),
+		),
+
+		if_statement: $ => prec.right(seq(
+			'if',
+			field('condition', $.expression),
+			optional('then'),
+			field('consequence', $.statement)
+		)),
+
 		return_statement: $ => prec.right(1, seq(
 			'return',
-			optional(seq(
-				commaExternalSep1(choice($.expression /*, $._procedure_type */), $),
-				optional(','),
-			)),
+			optional(commaSep1($.expression /*choice( , $._procedure_type )*/)),
 		)),
 
 		literal: $ => prec.right(choice(

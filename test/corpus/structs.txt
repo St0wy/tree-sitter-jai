@@ -170,3 +170,28 @@ address: Address = .{16, "Rue des coquelicots"};
     )
   )
 )
+
+==================
+Struct litteral with named type
+==================
+
+address: Address = .{ street_number = 16, street_name = "Rue des coquelicots"};
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type (identifier))
+    (struct
+      (struct_field 
+        (identifier)
+        (number)
+      )
+      (struct_field 
+        (identifier)
+        (string (string_content))
+      )
+    )
+  )
+)

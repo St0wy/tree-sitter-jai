@@ -1,0 +1,20 @@
+==================
+If true with block
+==================
+
+proc :: () { 
+  if true {
+
+  }
+}
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type
+      (identifier)
+    )
+  )
+)

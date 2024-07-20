@@ -73,3 +73,40 @@ multiply_add :: (a: s64) -> s64 {
     )
   )
 )
+
+==================
+Procedure with +=
+==================
+
+increment :: (a: s64) -> s64 { 
+  a += 1;
+  return a;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters
+        (parameter
+          (identifier)
+          (type
+            (identifier)
+          )
+        )
+      )
+      (type
+        (identifier)
+      )
+      (block
+        (update_statement
+          (identifier)
+          (number)
+        )
+        (return_statement (identifier))
+      )
+    )
+  )
+)

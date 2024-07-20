@@ -96,6 +96,103 @@ procedure :: () -> s32 {
 )
 
 ==================
+Procedure with multiple returns
+==================
+
+procedure :: () -> s32, s32 { 
+  return 0, 17;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (type
+        (identifier)
+      )
+      (type
+        (identifier)
+      )
+      (block
+        (return_statement
+          (number)
+          (number)
+        )
+      )
+    )
+  )
+)
+
+==================
+Procedure with named returns
+==================
+
+procedure :: () -> (a: s32, b: s32) { 
+  return 1, 2;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (named_type
+        (identifier)
+        (type (identifier))
+      )
+      (named_type
+        (identifier)
+        (type (identifier))
+      )
+      (block
+        (return_statement
+          (number)
+          (number)
+        )
+      )
+    )
+  )
+)
+
+==================
+Procedure with named returns without parenthesis
+==================
+
+procedure :: () -> a: s32, b: s32 { 
+  return 1, 2;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (named_type
+        (identifier)
+        (type (identifier))
+      )
+      (named_type
+        (identifier)
+        (type (identifier))
+      )
+      (block
+        (return_statement
+          (number)
+          (number)
+        )
+      )
+    )
+  )
+)
+
+==================
 Procedure with parameters and a return statement with an add
 ==================
 

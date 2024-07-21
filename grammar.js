@@ -111,7 +111,7 @@ module.exports = grammar({
 					$.identifier,
 					// $.variadic_type,
 					$.array_type,
-					// $.pointer_type,
+					$.pointer_type,
 					// $.field_type,
 					// $._procedure_type,
 				),
@@ -234,7 +234,7 @@ module.exports = grammar({
 			'(',
 			optional(seq(
 				commaSep1(seq(
-					field('argument', choice($.expression, $.array_type/*, $.struct_type, $.pointer_type*/, $.procedure)),
+					field('argument', choice($.expression, $.array_type/*, $.struct_type*/, $.pointer_type, $.procedure)),
 					optional(seq('=', choice($.expression))),
 				)),
 				optional(','),
@@ -304,11 +304,14 @@ module.exports = grammar({
 
 		for_statement: $ => seq(
 			'for',
+			optional('<'),
+			optional('*'),
 			optional(seq($.identifier, ':')),
 			choice(
 				$.range,
+				$.identifier,
 			),
-			field('body', $.block),
+			field('body', $.statement),
 		),
 
 		range: $ => seq(
@@ -333,6 +336,7 @@ module.exports = grammar({
 			$.float,
 			$.number,
 			$.string,
+			$.array_litteral,
 			// $.character,
 			$.boolean,
 			$.null,
@@ -361,6 +365,22 @@ module.exports = grammar({
 				choice($.expression/*, $._procedure_type*/),
 			)),
 		)),
+
+		array_litteral: $ => seq(
+			optional(
+				choice(
+					seq('(', $.type, ')'),
+					$.type,
+				),
+			),
+			'.',
+			'[',
+			optional(seq(
+				commaSep1($.expression),
+				optional(','),
+			)),
+			']',
+		),
 
 		string: $ => $._string_literal,
 
@@ -393,9 +413,12 @@ module.exports = grammar({
 
 		uninitialized: _ => '---',
 
+		// TODO : Differentiate between taking the address of a variable and pointer types
+		address: $ => seq('*', $.expression),
+
 		type: $ => prec.right(choice(
 			$.identifier,
-			// $.pointer_type,
+			$.pointer_type,
 			// $.variadic_type,
 			$.array_type,
 			// $.map_type,
@@ -416,6 +439,8 @@ module.exports = grammar({
 			// $.conditional_type,
 			// '...',
 		)),
+
+		pointer_type: $ => prec.left(seq('*', $.type)),
 
 		array_type: $ => prec(1, seq(
 			'[',

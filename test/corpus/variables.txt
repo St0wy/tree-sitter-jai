@@ -172,6 +172,27 @@ numbers: [..] int;
 )
 
 ==================
+Slice
+==================
+
+numbers: [] int;
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type
+      (array_type
+        (type
+          (identifier)
+        )
+      )
+    )
+  )
+)
+
+==================
 String
 ==================
 
@@ -232,6 +253,48 @@ proc :: () {
           (identifier)
           (number)
           (number)
+        )
+      )
+    )
+  )
+)
+
+==================
+Variable initialized by an array litteral
+==================
+
+array := string.["Hello", "there", "my", "dude?"];
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (array_litteral
+      (type (identifier))
+      (string (string_content))
+      (string (string_content))
+      (string (string_content))
+      (string (string_content))
+    )
+  )
+)
+
+==================
+Pointer variable
+==================
+
+x: *u32;
+
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (type
+      (pointer_type
+        (type
+          (identifier)
         )
       )
     )

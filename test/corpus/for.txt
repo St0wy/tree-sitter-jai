@@ -54,3 +54,97 @@ main :: () {
     )
   )
 )
+
+==================
+Reversed for
+==================
+
+main :: () {
+  for < a..b {
+    //print("Iterating with < from % to %; the current index is %\n", a, b, it);
+  }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (for_statement
+          (range
+            (identifier)
+            (identifier)
+          )
+          (block (comment))
+        )
+      )
+    )
+  )
+)
+
+==================
+For on array
+==================
+
+main :: () {
+  array: [] u32;
+  for array {
+    
+  }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (var_declaration
+          (identifier)
+          (type
+            (array_type
+              (type (identifier))
+            )
+          )
+        )
+        (for_statement
+          (identifier)
+          (block)
+        )
+      )
+    )
+  )
+)
+
+==================
+Blockless for
+==================
+
+main :: () {
+  for 1..5 array_add(*numbers, it*it);
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (for_statement
+          (range
+            (number)
+            (number)
+          )
+          (call_expression)
+        )
+      )
+    )
+  )
+)

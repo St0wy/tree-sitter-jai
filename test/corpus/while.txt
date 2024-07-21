@@ -83,8 +83,7 @@ While with name
 ==================
 
 main :: () {
-  while j_loop := j < 4 {
-  }
+  while j_loop := j < 4 { }
 }
 
 ---

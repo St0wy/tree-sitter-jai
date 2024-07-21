@@ -1,0 +1,56 @@
+==================
+Basic for
+==================
+
+main :: () {
+  for 0..10 { }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (for_statement
+          (range
+            (number)
+            (number)
+          )
+          (block)
+        )
+      )
+    )
+  )
+)
+
+==================
+For with a named iterator
+==================
+
+main :: () {
+  for number: 0..10 { }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (for_statement
+          (identifier)
+          (range
+            (number)
+            (number)
+          )
+          (block)
+        )
+      )
+    )
+  )
+)

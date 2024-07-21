@@ -255,7 +255,7 @@ module.exports = grammar({
 			$.update_statement,
 			$.if_statement,
 			$.while_statement,
-			// $.for_statement,
+			$.for_statement,
 			// $.switch_statement,
 			$.defer_statement,
 			$.break_statement,
@@ -300,6 +300,21 @@ module.exports = grammar({
 			))),
 			field('condition', $.expression),
 			field('body', $.statement),
+		),
+
+		for_statement: $ => seq(
+			'for',
+			optional(seq($.identifier, ':')),
+			choice(
+				$.range,
+			),
+			field('body', $.block),
+		),
+
+		range: $ => seq(
+			$.expression,
+			'..',
+			$.expression,
 		),
 
 		break_statement: $ => seq('break', optional($.identifier)),
@@ -422,10 +437,10 @@ module.exports = grammar({
 
 		identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
 		number: _ => {
-			const decimal = /[0-9][0-9_]*[ijk]?/;
-			const hex = /0[xh][0-9a-fA-F_]+[ijk]?/;
-			const octal = /0o[0-7][0-7]*[ijk]?/;
-			const binary = /0b[01][01_]*[ijk]?/;
+			const decimal = /[0-9][0-9_]?/;
+			const hex = /0[xh][0-9a-fA-F_]?/;
+			const octal = /0o[0-7][0-7]?/;
+			const binary = /0b[01][01_]?/;
 			// no float
 
 			return token(choice(

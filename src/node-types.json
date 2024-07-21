@@ -122,6 +122,10 @@
         "named": true
       },
       {
+        "type": "for_statement",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -483,6 +487,36 @@
     }
   },
   {
+    "type": "for_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "range",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_statement",
     "named": true,
     "fields": {
@@ -639,6 +673,21 @@
         },
         {
           "type": "procedure",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "range",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -1111,6 +1160,10 @@
   {
     "type": "float",
     "named": true
+  },
+  {
+    "type": "for",
+    "named": false
   },
   {
     "type": "identifier",

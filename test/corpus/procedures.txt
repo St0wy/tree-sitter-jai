@@ -309,3 +309,35 @@ a, b := foo();
     )
   )
 )
+
+==================
+Procedure with defer in it
+==================
+
+add :: (a: s64) -> s64 { 
+  defer free(a);
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters
+        (parameter
+          (identifier)
+          (type (identifier))
+        )
+      )
+      (type
+        (identifier)
+      )
+      (block
+        (defer_statement
+          (call_expression (identifier) (identifier))
+        )
+      )
+    )
+  )
+)

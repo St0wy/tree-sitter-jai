@@ -77,3 +77,33 @@ main :: () {
     )
   )
 )
+
+==================
+While with name
+==================
+
+main :: () {
+  while j_loop := j < 4 {
+  }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (while_statement
+          (identifier)
+          (binary_expression
+            (identifier)
+            (number)
+          )
+          (block)
+        )
+      )
+    )
+  )
+)

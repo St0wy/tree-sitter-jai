@@ -294,11 +294,17 @@ module.exports = grammar({
 
 		while_statement: $ => seq(
 			'while',
+			optional(field('name', seq(
+				$.identifier,
+				':='
+			))),
 			field('condition', $.expression),
 			field('body', $.statement),
 		),
 
 		break_statement: $ => seq('break', optional($.identifier)),
+
+		continue_statement: $ => seq('continue', optional($.identifier)),
 
 		defer_statement: $ => seq('defer', $.statement),
 

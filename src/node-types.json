@@ -887,6 +887,20 @@
             "named": true
           }
         ]
+      },
+      "name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ":=",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
       }
     }
   },
@@ -1073,6 +1087,10 @@
   {
     "type": "comment",
     "named": true
+  },
+  {
+    "type": "continue",
+    "named": false
   },
   {
     "type": "defer",

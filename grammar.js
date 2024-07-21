@@ -29,6 +29,11 @@ const PREC = {
 module.exports = grammar({
 	name: "jai",
 
+	conflicts: $ => [
+		[$.type, $.declaration],
+		[$.type, $.expression],
+	],
+
 	externals: $ => [
 		$._newline,
 		$._backslash,
@@ -156,7 +161,7 @@ module.exports = grammar({
 			optional(','),
 		),
 
-		expression: $ => prec(2,prec.left(choice(
+		expression: $ => prec.left(choice(
 			$.unary_expression,
 			$.binary_expression,
 			// $.ternary_expression,
@@ -179,7 +184,7 @@ module.exports = grammar({
 			// $.distinct_type,
 			// $.matrix_type,
 			$.literal
-		))),
+		)),
 
 		unary_expression: $ => prec.right(PREC.UNARY, seq(
 			field('operator', choice('+', '-', '~', '!', '&')),
@@ -249,11 +254,11 @@ module.exports = grammar({
 			$.assignment_statement,
 			$.update_statement,
 			$.if_statement,
-			// $.when_statement,
+			$.while_statement,
 			// $.for_statement,
 			// $.switch_statement,
-			// $.defer_statement,
-			// $.break_statement,
+			$.defer_statement,
+			$.break_statement,
 			// $.continue_statement,
 			// $.fallthrough_statement,
 			// $.label_statement,
@@ -285,8 +290,17 @@ module.exports = grammar({
 			field('consequence', $.statement),
 			optional(field('alternative', $.else_clause)),
 		)),
-
 		else_clause: $ => seq('else', $.statement),
+
+		while_statement: $ => seq(
+			'while',
+			field('condition', $.expression),
+			field('body', $.statement),
+		),
+
+		break_statement: $ => seq('break', optional($.identifier)),
+
+		defer_statement: $ => seq('defer', $.statement),
 
 		return_statement: $ => prec.right(1, seq(
 			'return',

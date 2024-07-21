@@ -1,0 +1,79 @@
+==================
+While true
+==================
+
+main :: () {
+  while true {}
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (while_statement
+          (boolean)
+          (block)
+        )
+      )
+    )
+  )
+)
+
+==================
+While with break
+==================
+
+main :: () {
+  x = 0;
+  while x < 10 {
+    print("x is %\n", x);
+
+    if x * x == 25  break;  // We will never get to 10, because we will break at 5.
+    x += 1;
+  }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (assignment_statement (identifier) (number))
+        (while_statement
+          (binary_expression
+            (identifier)
+            (number)
+          )
+          (block
+            (call_expression
+              (identifier)
+              (string
+                (string_content)
+                (escape_sequence))
+              (identifier)
+            )
+            (if_statement
+              (binary_expression
+                (binary_expression
+                  (identifier)
+                  (identifier)
+                )
+                (number)
+              )
+              (break_statement)
+            )
+            (comment)
+            (update_statement (identifier) (number))
+          )
+        )
+      )
+    )
+  )
+)

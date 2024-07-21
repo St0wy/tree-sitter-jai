@@ -204,3 +204,36 @@ text := "Hello";
     )
   )
 )
+
+==================
+Assign two at once
+==================
+
+proc :: () {
+  x, y: int;
+  x, y = 1, 2;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (var_declaration
+          (identifier)
+          (identifier)
+          (type (identifier))
+        )
+        (assignment_statement
+          (identifier)
+          (identifier)
+          (number)
+          (number)
+        )
+      )
+    )
+  )
+)

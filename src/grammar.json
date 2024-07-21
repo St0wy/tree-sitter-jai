@@ -381,6 +381,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "identifier"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "array_type"
                   }
                 ]
               },
@@ -900,32 +904,40 @@
       ]
     },
     "expression": {
-      "type": "PREC_LEFT",
-      "value": 0,
+      "type": "PREC",
+      "value": 2,
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "literal"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "unary_expression"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "binary_expression"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "call_expression"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        ]
+        "type": "PREC_LEFT",
+        "value": 0,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "unary_expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "binary_expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "call_expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "parenthesized_expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "literal"
+            }
+          ]
+        }
       }
     },
     "unary_expression": {
@@ -1705,6 +1717,23 @@
         }
       ]
     },
+    "parenthesized_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
     "call_expression": {
       "type": "PREC_LEFT",
       "value": 17,
@@ -1744,6 +1773,10 @@
                                 {
                                   "type": "SYMBOL",
                                   "name": "expression"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "array_type"
                                 },
                                 {
                                   "type": "SYMBOL",
@@ -1801,6 +1834,10 @@
                                       {
                                         "type": "SYMBOL",
                                         "name": "expression"
+                                      },
+                                      {
+                                        "type": "SYMBOL",
+                                        "name": "array_type"
                                       },
                                       {
                                         "type": "SYMBOL",
@@ -2156,9 +2193,38 @@
               "type": "SYMBOL",
               "name": "statement"
             }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "alternative",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "else_clause"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
+    },
+    "else_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "else"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "statement"
+        }
+      ]
     },
     "return_statement": {
       "type": "PREC_RIGHT",

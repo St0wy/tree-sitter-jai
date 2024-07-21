@@ -291,3 +291,21 @@ a := add(a = 1, b = 2);
     )
   )
 )
+
+==================
+Declare two variables from a procedure
+==================
+
+a, b := foo();
+
+---
+
+(source_file
+  (variable_declaration
+    (identifier)
+    (identifier)
+    (call_expression
+      (identifier)
+    )
+  )
+)

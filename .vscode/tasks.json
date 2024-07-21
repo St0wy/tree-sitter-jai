@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Test",
+			"type": "shell",
+			"command": "npm run test",
+			"group": {
+				"kind": "none",
+			},
+			"presentation": {
+				"reveal": "silent"
+			},
+			"windows": {
+				"options": {
+					"shell": {
+						"executable": "cmd.exe",
+						"args": [
+							"/d",
+							"/c"
+						]
+					}
+				}
+			}
+		},
+	]
+}

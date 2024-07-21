@@ -105,7 +105,7 @@ module.exports = grammar({
 				choice(
 					$.identifier,
 					// $.variadic_type,
-					// $.array_type,
+					$.array_type,
 					// $.pointer_type,
 					// $.field_type,
 					// $._procedure_type,
@@ -156,7 +156,7 @@ module.exports = grammar({
 			optional(','),
 		),
 
-		expression: $ => prec.left(choice(
+		expression: $ => prec(2,prec.left(choice(
 			$.unary_expression,
 			$.binary_expression,
 			// $.ternary_expression,
@@ -167,7 +167,7 @@ module.exports = grammar({
 			// $.slice_expression,
 			// $.range_expression,
 			// $.cast_expression,
-			// $.parenthesized_expression,
+			$.parenthesized_expression,
 			// $.in_expression,
 			// $.variadic_expression,
 			// $.or_return_expression,
@@ -179,7 +179,7 @@ module.exports = grammar({
 			// $.distinct_type,
 			// $.matrix_type,
 			$.literal
-		)),
+		))),
 
 		unary_expression: $ => prec.right(PREC.UNARY, seq(
 			field('operator', choice('+', '-', '~', '!', '&')),
@@ -222,12 +222,14 @@ module.exports = grammar({
 			}));
 		},
 
+		parenthesized_expression: $ => seq('(', $.expression, ')'),
+
 		call_expression: $ => prec.left(PREC.CALL, seq(
 			field('function', $.identifier),
 			'(',
 			optional(seq(
 				commaSep1(seq(
-					field('argument', choice($.expression/*, $.array_type, $.struct_type, $.pointer_type*/, $.procedure)),
+					field('argument', choice($.expression, $.array_type/*, $.struct_type, $.pointer_type*/, $.procedure)),
 					optional(seq('=', choice($.expression))),
 				)),
 				optional(','),
@@ -280,8 +282,11 @@ module.exports = grammar({
 			'if',
 			field('condition', $.expression),
 			optional('then'),
-			field('consequence', $.statement)
+			field('consequence', $.statement),
+			optional(field('alternative', $.else_clause)),
 		)),
+
+		else_clause: $ => seq('else', $.statement),
 
 		return_statement: $ => prec.right(1, seq(
 			'return',

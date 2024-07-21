@@ -50,6 +50,10 @@
         "named": true
       },
       {
+        "type": "parenthesized_expression",
+        "named": true
+      },
+      {
         "type": "unary_expression",
         "named": true
       }
@@ -322,6 +326,10 @@
         "required": false,
         "types": [
           {
+            "type": "array_type",
+            "named": true
+          },
+          {
             "type": "expression",
             "named": true
           },
@@ -399,6 +407,21 @@
     }
   },
   {
+    "type": "else_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "field",
     "named": true,
     "fields": {},
@@ -421,6 +444,26 @@
     "type": "if_statement",
     "named": true,
     "fields": {
+      "alternative": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "else_clause",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
       "consequence": {
         "multiple": false,
         "required": true,
@@ -465,6 +508,10 @@
       "required": true,
       "types": [
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -489,6 +536,21 @@
         },
         {
           "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -939,6 +1001,10 @@
   {
     "type": "comment",
     "named": true
+  },
+  {
+    "type": "else",
+    "named": false
   },
   {
     "type": "escape_sequence",

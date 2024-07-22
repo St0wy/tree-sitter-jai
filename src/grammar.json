@@ -935,6 +935,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "address"
+          },
+          {
+            "type": "SYMBOL",
             "name": "literal"
           }
         ]
@@ -1780,10 +1784,6 @@
                                 },
                                 {
                                   "type": "SYMBOL",
-                                  "name": "pointer_type"
-                                },
-                                {
-                                  "type": "SYMBOL",
                                   "name": "procedure"
                                 }
                               ]
@@ -1842,10 +1842,6 @@
                                       {
                                         "type": "SYMBOL",
                                         "name": "array_type"
-                                      },
-                                      {
-                                        "type": "SYMBOL",
-                                        "name": "pointer_type"
                                       },
                                       {
                                         "type": "SYMBOL",
@@ -2376,21 +2372,25 @@
       ]
     },
     "range": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ".."
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 18,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "STRING",
+            "value": ".."
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        ]
+      }
     },
     "break_statement": {
       "type": "SEQ",
@@ -3233,10 +3233,6 @@
     }
   ],
   "conflicts": [
-    [
-      "type",
-      "declaration"
-    ],
     [
       "type",
       "expression"

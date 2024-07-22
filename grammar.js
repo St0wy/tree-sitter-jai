@@ -30,7 +30,6 @@ module.exports = grammar({
 	name: "jai",
 
 	conflicts: $ => [
-		[$.type, $.declaration],
 		[$.type, $.expression],
 	],
 
@@ -179,7 +178,7 @@ module.exports = grammar({
 			// $.or_continue_expression,
 			// $.or_break_expression,
 			$.identifier,
-			// $.address,
+			$.address,
 			// $.map_type,
 			// $.distinct_type,
 			// $.matrix_type,
@@ -234,7 +233,7 @@ module.exports = grammar({
 			'(',
 			optional(seq(
 				commaSep1(seq(
-					field('argument', choice($.expression, $.array_type/*, $.struct_type*/, $.pointer_type, $.procedure)),
+					field('argument', choice($.expression, $.array_type/*, $.struct_type, $.pointer_type*/, $.procedure)),
 					optional(seq('=', choice($.expression))),
 				)),
 				optional(','),
@@ -314,11 +313,11 @@ module.exports = grammar({
 			field('body', $.statement),
 		),
 
-		range: $ => seq(
+		range: $ => prec.left(PREC.MEMBER, seq(
 			$.expression,
 			'..',
 			$.expression,
-		),
+		)),
 
 		break_statement: $ => seq('break', optional($.identifier)),
 

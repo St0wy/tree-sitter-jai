@@ -1,0 +1,108 @@
+==================
+Taking address of variable
+==================
+
+main :: () {
+  print(*numbers);
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (call_expression
+          (identifier)
+          (address (identifier))
+        )
+      )
+    )
+  )
+)
+
+==================
+Taking address of variable in function with multiple params
+==================
+
+main :: () {
+  array_add(*numbers, 1 + 1);
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (call_expression
+          (identifier)
+          (address (identifier))
+          (binary_expression (number) (number))
+        )
+      )
+    )
+  )
+)
+
+==================
+Passing pointer type to function
+:skip
+==================
+
+main :: () {
+  print_type(*Vector3);
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (call_expression
+          (identifier)
+          (pointer_type
+            (type (identifier))
+          )
+        )
+      )
+    )
+  )
+)
+
+==================
+Passing pointer type to function with multiple params
+:skip
+;isjdfosijd
+==================
+
+main :: () {
+  print_type(*Vector3, my_var);
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (call_expression
+          (identifier)
+          (pointer_type
+            (type (identifier))
+          )
+          (identifier)
+        )
+      )
+    )
+  )
+)

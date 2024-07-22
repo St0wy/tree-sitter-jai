@@ -126,7 +126,7 @@ Blockless for
 ==================
 
 main :: () {
-  for 1..5 array_add(*numbers, it*it);
+  for 1..5 print("hello");
 }
 
 ---
@@ -142,7 +142,10 @@ main :: () {
             (number)
             (number)
           )
-          (call_expression)
+          (call_expression
+            (identifier)
+            (string (string_content))
+          )
         )
       )
     )

@@ -927,6 +927,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "index_expression"
+          },
+          {
+            "type": "SYMBOL",
             "name": "parenthesized_expression"
           },
           {
@@ -1909,6 +1913,31 @@
         ]
       }
     },
+    "index_expression": {
+      "type": "PREC_LEFT",
+      "value": 18,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "STRING",
+            "value": "["
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "STRING",
+            "value": "]"
+          }
+        ]
+      }
+    },
     "statement": {
       "type": "PREC",
       "value": 1,
@@ -1969,6 +1998,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "variable_declaration"
+          },
+          {
+            "type": "SYMBOL",
             "name": "block"
           }
         ]
@@ -2006,17 +2039,8 @@
             ]
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "="
-              },
-              {
-                "type": "STRING",
-                "value": ":="
-              }
-            ]
+            "type": "STRING",
+            "value": "="
           },
           {
             "type": "SEQ",

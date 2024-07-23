@@ -341,3 +341,39 @@ add :: (a: s64) -> s64 {
     )
   )
 )
+
+==================
+Procedure with an array indexing
+==================
+
+add :: (a: s64) -> s64 { 
+  hello := global_arr[1];
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters
+        (parameter
+          (identifier)
+          (type (identifier))
+        )
+      )
+      (type
+        (identifier)
+      )
+      (block
+        (variable_declaration
+          (identifier)
+          (index_expression
+            (identifier)
+            (number)
+          )
+        )
+      )
+    )
+  )
+)

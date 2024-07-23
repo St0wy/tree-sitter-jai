@@ -50,6 +50,10 @@
         "named": true
       },
       {
+        "type": "index_expression",
+        "named": true
+      },
+      {
         "type": "literal",
         "named": true
       },
@@ -155,6 +159,10 @@
       },
       {
         "type": "var_declaration",
+        "named": true
+      },
+      {
+        "type": "variable_declaration",
         "named": true
       },
       {
@@ -592,6 +600,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "index_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
     }
   },
   {

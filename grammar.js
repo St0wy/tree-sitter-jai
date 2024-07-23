@@ -167,7 +167,7 @@ module.exports = grammar({
 			$.call_expression,
 			// $.selector_call_expression,
 			// $.member_expression,
-			// $.index_expression,
+			$.index_expression,
 			// $.slice_expression,
 			// $.range_expression,
 			// $.cast_expression,
@@ -241,6 +241,14 @@ module.exports = grammar({
 			')',
 		)),
 
+		index_expression: $ => prec.left(PREC.MEMBER, seq(
+			$.expression,
+			'[',
+			$.expression,
+			// optional(seq(',', $.expression)), not sure if jai has that
+			']',
+		)),
+
 		statement: $ => prec(1, choice(
 			$.procedure_declaration,
 			// $.overloaded_procedure_declaration,
@@ -265,6 +273,7 @@ module.exports = grammar({
 			$.return_statement,
 			$.expression,
 			$.var_declaration,
+			$.variable_declaration,
 			// $.foreign_block,
 			// $.tagged_block,
 			$.block,
@@ -272,7 +281,7 @@ module.exports = grammar({
 
 		assignment_statement: $ => prec(PREC.ASSIGNMENT, seq(
 			commaSep1($.identifier),
-			choice('=', ':='),
+			'=',
 			commaSep1(choice($.expression, $.procedure)),
 		)),
 

@@ -927,6 +927,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "member_expression"
+          },
+          {
+            "type": "SYMBOL",
             "name": "index_expression"
           },
           {
@@ -1917,6 +1921,35 @@
         ]
       }
     },
+    "member_expression": {
+      "type": "PREC_LEFT",
+      "value": 18,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "."
+          },
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        ]
+      }
+    },
     "index_expression": {
       "type": "PREC_LEFT",
       "value": 18,
@@ -1944,7 +1977,7 @@
     },
     "if_expression": {
       "type": "PREC_RIGHT",
-      "value": -1,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3079,6 +3112,62 @@
       "content": {
         "type": "CHOICE",
         "members": [
+          {
+            "type": "STRING",
+            "value": "bool"
+          },
+          {
+            "type": "STRING",
+            "value": "string"
+          },
+          {
+            "type": "STRING",
+            "value": "int"
+          },
+          {
+            "type": "STRING",
+            "value": "float"
+          },
+          {
+            "type": "STRING",
+            "value": "float64"
+          },
+          {
+            "type": "STRING",
+            "value": "float32"
+          },
+          {
+            "type": "STRING",
+            "value": "s64"
+          },
+          {
+            "type": "STRING",
+            "value": "s32"
+          },
+          {
+            "type": "STRING",
+            "value": "s16"
+          },
+          {
+            "type": "STRING",
+            "value": "s8"
+          },
+          {
+            "type": "STRING",
+            "value": "u64"
+          },
+          {
+            "type": "STRING",
+            "value": "u32"
+          },
+          {
+            "type": "STRING",
+            "value": "u16"
+          },
+          {
+            "type": "STRING",
+            "value": "u8"
+          },
           {
             "type": "SYMBOL",
             "name": "identifier"

@@ -166,7 +166,7 @@ module.exports = grammar({
 			// $.ternary_expression,
 			$.call_expression,
 			// $.selector_call_expression,
-			// $.member_expression,
+			$.member_expression,
 			$.index_expression,
 			// $.slice_expression,
 			// $.range_expression,
@@ -242,6 +242,12 @@ module.exports = grammar({
 			')',
 		)),
 
+		member_expression: $ => prec.left(PREC.MEMBER, seq(
+			optional($.identifier),
+			'.',
+			$.identifier,
+		)),
+
 		index_expression: $ => prec.left(PREC.MEMBER, seq(
 			$.expression,
 			'[',
@@ -250,7 +256,7 @@ module.exports = grammar({
 			']',
 		)),
 
-		if_expression: $ => prec.right(-1, seq(
+		if_expression: $ => prec.right(seq(
 			'ifx',
 			field('condition', $.expression),
 			optional('then'),
@@ -455,6 +461,20 @@ module.exports = grammar({
 		address: $ => seq('*', $.expression),
 
 		type: $ => prec.right(choice(
+			"bool",
+            "string",
+            "int",
+            "float",
+            "float64",
+            "float32",
+            "s64",
+            "s32",
+            "s16",
+            "s8",
+            "u64",
+            "u32",
+            "u16",
+            "u8",
 			$.identifier,
 			$.pointer_type,
 			// $.variadic_type,

@@ -346,7 +346,7 @@ add :: (a: s64) -> s64 {
 Procedure with an array indexing
 ==================
 
-add :: (a: s64) -> s64 { 
+add :: () { 
   hello := global_arr[1];
 }
 
@@ -356,15 +356,7 @@ add :: (a: s64) -> s64 {
   (procedure_declaration
     (identifier)
     (procedure
-      (parameters
-        (parameter
-          (identifier)
-          (type (identifier))
-        )
-      )
-      (type
-        (identifier)
-      )
+      (parameters)
       (block
         (variable_declaration
           (identifier)

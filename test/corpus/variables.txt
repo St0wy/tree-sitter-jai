@@ -300,3 +300,28 @@ x: *u32;
     )
   )
 )
+
+==================
+Variable that stores an address
+==================
+
+add :: () { 
+  hello := *variable;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (variable_declaration
+          (identifier)
+          (address (identifier))
+        )
+      )
+    )
+  )
+)

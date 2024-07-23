@@ -109,8 +109,8 @@ module.exports = grammar({
 				choice(
 					$.identifier,
 					// $.variadic_type,
-					$.array_type,
-					$.pointer_type,
+					// $.array_type,
+					// $.pointer_type,
 					// $.field_type,
 					// $._procedure_type,
 				),
@@ -147,18 +147,18 @@ module.exports = grammar({
 			commaSep1($.expression),
 		),
 
-		var_declaration: $ => seq(
+		var_declaration: $ => prec.left(seq(
 			commaSep1($.identifier),
 			":",
 			seq($.type, optional(seq(choice('=', ':'), commaSep1($.expression)))),
-		),
+		)),
 
-		variable_declaration: $ => seq(
+		variable_declaration: $ => prec.left(seq(
 			commaSep1($.identifier),
 			':=',
 			commaSep1($.expression),
 			optional(','),
-		),
+		)),
 
 		expression: $ => prec.left(choice(
 			$.unary_expression,
@@ -171,6 +171,7 @@ module.exports = grammar({
 			// $.slice_expression,
 			// $.range_expression,
 			// $.cast_expression,
+			$.if_expression,
 			$.parenthesized_expression,
 			// $.in_expression,
 			// $.variadic_expression,
@@ -249,6 +250,14 @@ module.exports = grammar({
 			']',
 		)),
 
+		if_expression: $ => prec.right(-1, seq(
+			'ifx',
+			field('condition', $.expression),
+			optional('then'),
+			field('consequence', $.statement),
+			optional(field('alternative', $.else_clause)),
+		)),
+
 		statement: $ => prec(1, choice(
 			$.procedure_declaration,
 			// $.overloaded_procedure_declaration,
@@ -279,17 +288,17 @@ module.exports = grammar({
 			$.block,
 		)),
 
-		assignment_statement: $ => prec(PREC.ASSIGNMENT, seq(
+		assignment_statement: $ => prec.left(PREC.ASSIGNMENT, seq(
 			commaSep1($.identifier),
 			'=',
 			commaSep1(choice($.expression, $.procedure)),
 		)),
 
-		update_statement: $ => seq(
+		update_statement: $ => prec.left(seq(
 			commaSep1($.identifier),
 			choice('+=', '-=', '*=', '/=', '%=', '&=', '|=', '^=', '<<=', '>>=', '||=', '&&=', '&~='),
 			commaSep1($.expression),
-		),
+		)),
 
 		if_statement: $ => prec.right(seq(
 			'if',
@@ -328,7 +337,7 @@ module.exports = grammar({
 			$.expression,
 		)),
 
-		break_statement: $ => seq('break', optional($.identifier)),
+		break_statement: $ => prec.right(seq('break', optional($.identifier))),
 
 		continue_statement: $ => seq('continue', optional($.identifier)),
 
@@ -450,7 +459,7 @@ module.exports = grammar({
 
 		pointer_type: $ => prec.left(seq('*', $.type)),
 
-		array_type: $ => prec(1, seq(
+		array_type: $ => prec.right(1, seq(
 			'[',
 			optional(seq(choice('..', $.expression))),
 			']',
@@ -459,14 +468,14 @@ module.exports = grammar({
 
 		named_type: $ => prec.right(seq($.identifier, ':', $.type, optional(seq('=', $.literal)))),
 
-		const_declaration: $ => seq(
+		const_declaration: $ => prec.right(seq(
 			commaSep1($.identifier),
 			'::',
 			// optional($.tag),
 			commaSep1(
 				$.expression
 			),
-		),
+		)),
 
 		identifier: _ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
 		number: _ => {

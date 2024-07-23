@@ -252,3 +252,34 @@ proc :: () {
     )
   )
 )
+
+
+==================
+Ifx true with block
+==================
+
+proc :: () { 
+  a := ifx true {
+    1;
+  }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (variable_declaration
+          (identifier)
+          (if_expression
+            (boolean)
+            (block (number))
+          )
+        )
+      )
+    )
+  )
+)

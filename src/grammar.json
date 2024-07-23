@@ -253,8 +253,8 @@
                       "type": "SEQ",
                       "members": [
                         {
-                          "type": "SYMBOL",
-                          "name": "_separator"
+                          "type": "STRING",
+                          "value": ";"
                         },
                         {
                           "type": "CHOICE",
@@ -480,8 +480,8 @@
                     ]
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "_separator"
+                    "type": "STRING",
+                    "value": ";"
                   }
                 ]
               }
@@ -2039,6 +2039,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "if_case_statement"
+          },
+          {
+            "type": "SYMBOL",
             "name": "defer_statement"
           },
           {
@@ -2335,6 +2339,84 @@
         }
       ]
     },
+    "if_case_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": "=="
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "switch_case"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "switch_case": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "case"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "condition",
+              "content": {
+                "type": "SYMBOL",
+                "name": "expression"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "through_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "statement"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
     "while_statement": {
       "type": "SEQ",
       "members": [
@@ -2539,6 +2621,10 @@
           "name": "statement"
         }
       ]
+    },
+    "through_statement": {
+      "type": "STRING",
+      "value": "#through"
     },
     "return_statement": {
       "type": "PREC_RIGHT",

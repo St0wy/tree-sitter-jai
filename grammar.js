@@ -92,7 +92,7 @@ module.exports = grammar({
 
 		block: $ => prec(2, seq(
 			'{',
-			sep($.statement, $._separator),
+			sep($.statement, ';'),
 			'}',
 		)),
 
@@ -131,7 +131,7 @@ module.exports = grammar({
 			'struct',
 			'{',
 			optional(repeat(
-				seq(choice($.field, $.default_value_assignment, $.const_declaration), $._separator),
+				seq(choice($.field, $.default_value_assignment, $.const_declaration), ';'),
 			)),
 			'}',
 		),
@@ -272,7 +272,7 @@ module.exports = grammar({
 			$.if_statement,
 			$.while_statement,
 			$.for_statement,
-			// $.switch_statement,
+			$.if_case_statement,
 			$.defer_statement,
 			$.break_statement,
 			// $.continue_statement,
@@ -309,6 +309,25 @@ module.exports = grammar({
 		)),
 		else_clause: $ => seq('else', $.statement),
 
+		if_case_statement: $ => seq(
+			'if',
+			$.expression,
+			'==',
+			'{',
+			repeat($.switch_case),
+			'}',
+		),
+		switch_case: $ => seq(
+			'case',
+			optional(field('condition', $.expression)),
+			';',
+			choice(
+				$.through_statement,
+				$.statement,
+			),
+			';'
+		),
+
 		while_statement: $ => seq(
 			'while',
 			optional(field('name', seq(
@@ -342,6 +361,8 @@ module.exports = grammar({
 		continue_statement: $ => seq('continue', optional($.identifier)),
 
 		defer_statement: $ => seq('defer', $.statement),
+
+		through_statement: $ => '#through',
 
 		return_statement: $ => prec.right(1, seq(
 			'return',

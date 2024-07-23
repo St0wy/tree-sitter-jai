@@ -283,3 +283,63 @@ proc :: () {
     )
   )
 )
+
+==================
+If case
+==================
+
+proc :: () { 
+  if soda_flavor_id == {
+    case 0;     #through;
+    case 1;      #through;
+
+    case 2; print("The fruit '%' is good.\n", soda_flavor_id);
+
+    case 3;    #through;
+
+    case;             print("This fruit '%' is bad.\n", soda_flavor_id);
+  }
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (if_case_statement
+          (identifier)
+          (switch_case
+            (number)
+            (through_statement)
+          )
+          (switch_case
+            (number)
+            (through_statement)
+          )
+          (switch_case
+            (number)
+            (call_expression
+              (identifier)
+              (string (string_content) (escape_sequence))
+              (identifier)
+            )
+          )
+          (switch_case
+            (number)
+            (through_statement)
+          )
+          (switch_case
+            (call_expression
+              (identifier)
+              (string (string_content) (escape_sequence))
+              (identifier)
+            )
+          )
+        )
+      )
+    )
+  )
+)

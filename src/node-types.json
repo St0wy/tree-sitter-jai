@@ -142,6 +142,10 @@
         "named": true
       },
       {
+        "type": "if_case_statement",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -571,6 +575,25 @@
     }
   },
   {
+    "type": "if_case_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "switch_case",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_expression",
     "named": true,
     "fields": {
@@ -920,6 +943,36 @@
     }
   },
   {
+    "type": "switch_case",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        },
+        {
+          "type": "through_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type",
     "named": true,
     "fields": {},
@@ -1254,6 +1307,10 @@
     "named": false
   },
   {
+    "type": "case",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true
   },
@@ -1324,6 +1381,10 @@
   {
     "type": "then",
     "named": false
+  },
+  {
+    "type": "through_statement",
+    "named": true
   },
   {
     "type": "true",

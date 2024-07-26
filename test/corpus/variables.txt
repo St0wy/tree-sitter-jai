@@ -9,9 +9,7 @@ x: u32;
 (source_file
   (var_declaration
     (identifier)
-    (type
-      (identifier)
-    )
+    (type)
   )
 )
 
@@ -26,9 +24,7 @@ x: u32 = 1;
 (source_file
   (var_declaration
     (identifier)
-    (type
-      (identifier)
-    )
+    (type)
     (number)
   )
 )
@@ -59,9 +55,7 @@ x: u32 : 1;
 (source_file
   (var_declaration
     (identifier)
-    (type
-      (identifier)
-    )
+    (type)
     (number)
   )
 )
@@ -142,9 +136,7 @@ numbers: [10] int;
     (type
       (array_type
         (number)
-        (type
-          (identifier)
-        )
+        (type)
       )
     )
   )
@@ -163,9 +155,7 @@ numbers: [..] int;
     (identifier)
     (type
       (array_type
-        (type
-          (identifier)
-        )
+        (type)
       )
     )
   )
@@ -184,9 +174,7 @@ numbers: [] int;
     (identifier)
     (type
       (array_type
-        (type
-          (identifier)
-        )
+        (type)
       )
     )
   )
@@ -203,9 +191,7 @@ text: string;
 (source_file
   (var_declaration
     (identifier)
-    (type
-      (identifier)
-    )
+    (type)
   )
 )
 
@@ -246,7 +232,7 @@ proc :: () {
         (var_declaration
           (identifier)
           (identifier)
-          (type (identifier))
+          (type)
         )
         (assignment_statement
           (identifier)
@@ -271,7 +257,7 @@ array := string.["Hello", "there", "my", "dude?"];
   (variable_declaration
     (identifier)
     (array_litteral
-      (type (identifier))
+      (type)
       (string (string_content))
       (string (string_content))
       (string (string_content))
@@ -293,9 +279,7 @@ x: *u32;
     (identifier)
     (type
       (pointer_type
-        (type
-          (identifier)
-        )
+        (type)
       )
     )
   )
@@ -320,6 +304,32 @@ add :: () {
         (variable_declaration
           (identifier)
           (address (identifier))
+        )
+      )
+    )
+  )
+)
+
+==================
+Variable that stores an enum
+==================
+
+add :: () { 
+  hello: VkFormat = .R8G8B8A8_UNORM;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (var_declaration
+          (identifier)
+          (type (identifier))
+          (member_expression (identifier))
         )
       )
     )

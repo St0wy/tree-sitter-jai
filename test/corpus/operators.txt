@@ -15,14 +15,10 @@ negate :: (a: s64) -> s64 {
       (parameters
         (parameter
           (identifier)
-          (type
-            (identifier)
-          )
+          (type)
         )
       )
-      (type
-        (identifier)
-      )
+      (type)
       (block
         (return_statement
           (unary_expression
@@ -51,14 +47,10 @@ multiply_add :: (a: s64) -> s64 {
       (parameters
         (parameter
           (identifier)
-          (type
-            (identifier)
-          )
+          (type)
         )
       )
-      (type
-        (identifier)
-      )
+      (type)
       (block
         (return_statement
           (binary_expression
@@ -92,14 +84,10 @@ increment :: (a: s64) -> s64 {
       (parameters
         (parameter
           (identifier)
-          (type
-            (identifier)
-          )
+          (type)
         )
       )
-      (type
-        (identifier)
-      )
+      (type)
       (block
         (update_statement
           (identifier)

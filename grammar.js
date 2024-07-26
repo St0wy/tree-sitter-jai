@@ -31,6 +31,8 @@ module.exports = grammar({
 
 	conflicts: $ => [
 		[$.type, $.expression],
+		[$.struct],
+		[$.expression, $.struct, $.type],
 	],
 
 	externals: $ => [
@@ -183,7 +185,7 @@ module.exports = grammar({
 			// $.map_type,
 			// $.distinct_type,
 			// $.matrix_type,
-			$.literal
+			$.literal,
 		)),
 
 		unary_expression: $ => prec.right(PREC.UNARY, seq(
@@ -243,7 +245,7 @@ module.exports = grammar({
 		)),
 
 		member_expression: $ => prec.left(PREC.MEMBER, seq(
-			optional($.identifier),
+			// $.identifier,
 			'.',
 			$.identifier,
 		)),
@@ -391,7 +393,7 @@ module.exports = grammar({
 			optional(
 				choice(
 					seq('(', $.type, ')'),
-					$.type,
+					$.identifier,
 				),
 			),
 			'.',
@@ -402,12 +404,9 @@ module.exports = grammar({
 			)),
 			'}',
 		),
-		struct_field: $ => prec.right(seq(
+		struct_field: $ => prec.right(choice(
 			$.expression,
-			optional(seq(
-				'=',
-				choice($.expression/*, $._procedure_type*/),
-			)),
+			seq($.identifier, '=', $.expression)
 		)),
 
 		array_litteral: $ => seq(

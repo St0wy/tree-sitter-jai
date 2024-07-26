@@ -108,7 +108,7 @@ main :: () {
           (identifier)
           (type
             (array_type
-              (type (identifier))
+              (type)
             )
           )
         )

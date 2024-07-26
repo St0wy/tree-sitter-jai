@@ -80,7 +80,6 @@ main :: () {
 ==================
 Passing pointer type to function with multiple params
 :skip
-;isjdfosijd
 ==================
 
 main :: () {

@@ -14,15 +14,11 @@ Address :: struct {
     (identifier)
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
     )
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
     )
   )
 )
@@ -44,16 +40,12 @@ Address :: struct {
     (identifier)
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
       (number)
     )
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
       (string
         (string_content)
       )
@@ -78,9 +70,7 @@ Address :: struct {
     (identifier)
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
     )
     (default_value_assignment
       (identifier)
@@ -88,9 +78,7 @@ Address :: struct {
     )
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
     )
   )
 )
@@ -113,15 +101,11 @@ Address :: struct {
     (identifier)
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
     )
     (field
       (identifier)
-      (type
-        (identifier)
-      )
+      (type)
     )
     (const_declaration
       (identifier)
@@ -145,7 +129,7 @@ address := Address.{16, "Rue des coquelicots"};
   (variable_declaration
     (identifier)
     (struct
-      (type (identifier))
+      (identifier)
       (struct_field (number))
       (struct_field (string (string_content)))
     )
@@ -184,11 +168,11 @@ address: Address = .{ street_number = 16, street_name = "Rue des coquelicots"};
     (identifier)
     (type (identifier))
     (struct
-      (struct_field 
+      (struct_field
         (identifier)
         (number)
       )
-      (struct_field 
+      (struct_field
         (identifier)
         (string (string_content))
       )

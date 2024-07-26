@@ -31,15 +31,11 @@ add :: (a: s32, b: s32) { }
       (parameters
         (parameter
           (identifier)
-          (type
-            (identifier)
-          )
+          (type)
         )
         (parameter
           (identifier)
-          (type
-            (identifier)
-          )
+          (type)
         )
       )
       (block)
@@ -60,9 +56,7 @@ procedure :: () -> s32 { }
     (identifier)
     (procedure
       (parameters)
-      (type
-        (identifier)
-      )
+      (type)
       (block)
     )
   )
@@ -83,9 +77,7 @@ procedure :: () -> s32 {
     (identifier)
     (procedure
       (parameters)
-      (type
-        (identifier)
-      )
+      (type)
       (block
         (return_statement
           (number)
@@ -110,12 +102,8 @@ procedure :: () -> s32, s32 {
     (identifier)
     (procedure
       (parameters)
-      (type
-        (identifier)
-      )
-      (type
-        (identifier)
-      )
+      (type)
+      (type)
       (block
         (return_statement
           (number)
@@ -143,11 +131,11 @@ procedure :: () -> (a: s32, b: s32) {
       (parameters)
       (named_type
         (identifier)
-        (type (identifier))
+        (type)
       )
       (named_type
         (identifier)
-        (type (identifier))
+        (type)
       )
       (block
         (return_statement
@@ -176,11 +164,11 @@ procedure :: () -> a: s32, b: s32 {
       (parameters)
       (named_type
         (identifier)
-        (type (identifier))
+        (type)
       )
       (named_type
         (identifier)
-        (type (identifier))
+        (type)
       )
       (block
         (return_statement
@@ -209,20 +197,14 @@ add :: (a: s64, b: s64) -> s64 {
       (parameters
         (parameter
           (identifier)
-          (type
-            (identifier)
-          )
+          (type)
         )
         (parameter
           (identifier)
-          (type
-            (identifier)
-          )
+          (type)
         )
       )
-      (type
-        (identifier)
-      )
+      (type)
       (block
         (return_statement
           (binary_expression
@@ -327,12 +309,10 @@ add :: (a: s64) -> s64 {
       (parameters
         (parameter
           (identifier)
-          (type (identifier))
+          (type)
         )
       )
-      (type
-        (identifier)
-      )
+      (type)
       (block
         (defer_statement
           (call_expression (identifier) (identifier))

@@ -1928,6 +1928,18 @@
         "type": "SEQ",
         "members": [
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "STRING",
             "value": "."
           },
@@ -3492,9 +3504,7 @@
       "struct"
     ],
     [
-      "expression",
-      "struct",
-      "type"
+      "member_expression"
     ]
   ],
   "precedences": [],

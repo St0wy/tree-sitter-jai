@@ -335,3 +335,28 @@ add :: () {
     )
   )
 )
+
+==================
+Variable that stores an enum too
+==================
+
+add :: () { 
+  hello := VkFormat.R8G8B8A8_UNORM;
+}
+
+---
+
+(source_file
+  (procedure_declaration
+    (identifier)
+    (procedure
+      (parameters)
+      (block
+        (variable_declaration
+          (identifier)
+          (member_expression (identifier) (identifier))
+        )
+      )
+    )
+  )
+)

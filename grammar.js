@@ -32,7 +32,7 @@ module.exports = grammar({
 	conflicts: $ => [
 		[$.type, $.expression],
 		[$.struct],
-		[$.expression, $.struct, $.type],
+		[$.member_expression],
 	],
 
 	externals: $ => [
@@ -245,7 +245,7 @@ module.exports = grammar({
 		)),
 
 		member_expression: $ => prec.left(PREC.MEMBER, seq(
-			// $.identifier,
+			optional($.identifier),
 			'.',
 			$.identifier,
 		)),

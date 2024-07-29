@@ -65,12 +65,24 @@ module.exports = grammar({
 		source_file: $ => seq(repeat(seq($.declaration, $._separator)), optional($.declaration)),
 
 		declaration: $ => choice(
+			$.import_declaration,
 			$.procedure_declaration,
 			$.struct_declaration,
 			$.variable_declaration,
 			$.var_declaration,
 			$.const_declaration,
 			$.expression
+		),
+
+		import_declaration: $ => seq(
+			optional(seq($.identifier, "::")),
+			"#import",
+			optional(choice(
+				",file",
+				",dir",
+				",string",
+			)),
+			$.string,
 		),
 
 		procedure_declaration: $ => seq(
@@ -461,19 +473,19 @@ module.exports = grammar({
 
 		type: $ => prec.right(choice(
 			"bool",
-            "string",
-            "int",
-            "float",
-            "float64",
-            "float32",
-            "s64",
-            "s32",
-            "s16",
-            "s8",
-            "u64",
-            "u32",
-            "u16",
-            "u8",
+			"string",
+			"int",
+			"float",
+			"float64",
+			"float32",
+			"s64",
+			"s32",
+			"s16",
+			"s8",
+			"u64",
+			"u32",
+			"u16",
+			"u8",
 			$.identifier,
 			$.pointer_type,
 			// $.variadic_type,

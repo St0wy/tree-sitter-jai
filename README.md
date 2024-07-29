@@ -1,5 +1,10 @@
 # Tree Sitter Jai
 
+## TODO
+
+- [] #string
+- [] Most compiler directives
+
 ## Limitations
 
 This grammar cannot differentiate between passing the address of a variable or passing a pointer type.

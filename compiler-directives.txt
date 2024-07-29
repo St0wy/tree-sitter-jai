@@ -1,0 +1,94 @@
+************************List of Compiler Directives***********************
+**************************************************************************
+#add_context
+#align
+#as
+#asm
+#assert
+#bake
+#bake_arguments
+#bake_constants
+#body_text
+#bytes
+#caller_code
+#caller_location
+#c_call
+#code
+    ,null
+    ,typed
+    ,infer  //only mentioned in comment in Compiler.jai
+#compiler
+#compile_time
+#complete
+#cpp_method
+#cpp_return_type_is_non_pod
+#deprecated
+#discard
+#dump
+#dynamic_specialize
+#elsewhere
+#exists
+#expand
+#foreign
+#if
+#ifx
+#import
+    ,string
+    ,file
+    ,dir
+#insert
+    ,scope(target)
+        'target' is a Code that must be constant at compile-time
+#intrinsic
+#library
+    ,system
+    ,no_static_library
+    ,no_dll
+    ,link_always    example:  #library,system,link_always "libm";
+#load
+#location
+#modify
+#module_parameters
+#must
+#no_abc
+#no_aoc
+#no_alias
+#no_padding
+#no_call
+#no_context
+#no_debug
+#no_reset
+#place
+#placeholder
+#poke_name
+#procedure_name
+#program_export
+#run
+    ,stallable
+#runtime_support
+#scope_export
+#scope_module
+#specified
+#string
+    ,cr
+#symmetric
+#system_library  (soon to be deprecated)
+    ,no_dll
+    ,link_always
+#this
+#through
+#type
+    ,distinct
+    ,isa
+#type_info_none
+#type_info_no_size_complaint
+#type_info_procedures_are_void_pointers
+
+
+
+**********************Deprecated Compiler Directives**********************
+**************************************************************************
+#foreign_library                renamed to: #library
+#foreign_system_library         renamed to: #system_library
+#insert_internal                replaced by: #insert,scope()
+#run_and_insert                 replaced by: #insert #run (expression)

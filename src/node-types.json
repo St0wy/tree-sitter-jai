@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "import_declaration",
+        "named": true
+      },
+      {
         "type": "procedure_declaration",
         "named": true
       },
@@ -670,6 +674,25 @@
     }
   },
   {
+    "type": "import_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "index_expression",
     "named": true,
     "fields": {},
@@ -1162,6 +1185,10 @@
     "named": false
   },
   {
+    "type": "#import",
+    "named": false
+  },
+  {
     "type": "%",
     "named": false
   },
@@ -1223,6 +1250,18 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": ",dir",
+    "named": false
+  },
+  {
+    "type": ",file",
+    "named": false
+  },
+  {
+    "type": ",string",
     "named": false
   },
   {

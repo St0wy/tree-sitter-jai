@@ -1,0 +1,94 @@
+==================
+Simple import
+==================
+
+#import "Basic";
+
+---
+
+(source_file
+  (import_declaration
+    (string (string_content))
+  )
+)
+
+==================
+Import with namespace
+==================
+
+Math :: #import "Math";
+
+---
+
+(source_file
+  (import_declaration
+    (identifier)
+    (string (string_content))
+  )
+)
+
+==================
+Import file
+==================
+
+Specific :: #import,file "files/specific.jai";
+
+---
+
+(source_file
+  (import_declaration
+    (identifier)
+    (string (string_content))
+  )
+)
+
+==================
+Import dir
+==================
+
+Subdir :: #import,dir "files/From_Subdirectory";
+
+---
+
+(source_file
+  (import_declaration
+    (identifier)
+    (string (string_content))
+  )
+)
+
+==================
+Import string
+==================
+
+#import,string "factorial :: (x: int) -> int { if x <= 1 return 1; return x*factorial(x-1);}";
+
+---
+
+(source_file
+  (import_declaration
+    (string (string_content))
+  )
+)
+
+
+==================
+Import #string
+:skip
+==================
+
+#import,string #string DONE
+factorial2 :: (x: int) -> int {
+    if x <= 1 return 1;
+    return x*factorial2(x-1);
+}
+DONE
+;
+---
+
+(source_file
+  (import_declaration
+    (string (string_content))
+  )
+)
+

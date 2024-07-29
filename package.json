@@ -5,6 +5,7 @@
   "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "test": "tree-sitter generate && tree-sitter test",
     "run": "tree-sitter generate && tree-sitter parse tests/**/*.jai",
     "install": "node-gyp-build",

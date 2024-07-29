@@ -11,4 +11,4 @@ This grammar considers those a allways begin the "address" operator.
 - Install [Node.js](https://nodejs.org) and [pnpm](https://pnpm.io/)
 - Run `pnpm i`
 
-You should now be able to run tests using pnpm run test.
+You should now be able to run tests using `pnpm run test`.

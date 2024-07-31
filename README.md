@@ -2,6 +2,7 @@
 
 ## TODO
 
+- [] #if
 - [] #string
 - [] Most compiler directives
 

@@ -1,0 +1,53 @@
+==================
+Enum declaration
+==================
+
+Fruits_We_Sell :: enum u32 {
+  BANANA :: 5;
+  APPLE;
+  JOHANNISBEEREN;
+  APRICOT :: 12;
+  WATERMELON;
+}
+
+---
+
+(source_file
+  (enum_declaration
+    (identifier) (type)
+    (identifier) (number)
+    (identifier)
+    (identifier)
+    (identifier) (number)
+    (identifier)
+  )
+)
+
+==================
+Specified enum
+==================
+
+Fruits_We_Sell :: enum u32 #specified {
+  BANANA         :: 1;
+  APPLE          :: 2;
+  JOHANNISBEEREN :: 3;
+  KIWI           :: 4; 
+  APRICOT        :: 9;
+  WATERMELON     :: 18;
+}
+
+---
+
+(source_file
+  (enum_declaration
+    (identifier) (type) (specified_directive)
+    (identifier) (number)
+    (identifier) (number)
+    (identifier) (number)
+    (identifier) (number)
+    (identifier) (number)
+    (identifier) (number)
+  )
+)
+
+

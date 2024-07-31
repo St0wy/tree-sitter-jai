@@ -7,8 +7,26 @@ Simple import
 ---
 
 (source_file
-  (import_declaration
-    (string (string_content))
+  (compiler_declaration
+    (import
+      (string (string_content))
+    )
+  )
+)
+
+==================
+Simple load
+==================
+
+#load "lib.jai";
+
+---
+
+(source_file
+  (compiler_declaration
+    (load
+      (string (string_content))
+    )
   )
 )
 
@@ -21,9 +39,11 @@ Math :: #import "Math";
 ---
 
 (source_file
-  (import_declaration
-    (identifier)
-    (string (string_content))
+  (compiler_declaration
+    (import
+      (identifier)
+      (string (string_content))
+    )
   )
 )
 
@@ -36,9 +56,11 @@ Specific :: #import,file "files/specific.jai";
 ---
 
 (source_file
-  (import_declaration
-    (identifier)
-    (string (string_content))
+  (compiler_declaration
+    (import
+      (identifier)
+      (string (string_content))
+    )
   )
 )
 
@@ -51,9 +73,11 @@ Subdir :: #import,dir "files/From_Subdirectory";
 ---
 
 (source_file
-  (import_declaration
-    (identifier)
-    (string (string_content))
+  (compiler_declaration
+    (import
+      (identifier)
+      (string (string_content))
+    )
   )
 )
 
@@ -66,8 +90,10 @@ Import string
 ---
 
 (source_file
-  (import_declaration
-    (string (string_content))
+  (compiler_declaration
+    (import
+      (string (string_content))
+    )
   )
 )
 
@@ -87,8 +113,10 @@ DONE
 ---
 
 (source_file
-  (import_declaration
-    (string (string_content))
+  (compiler_declaration
+    (import
+      (string (string_content))
+    )
   )
 )
 

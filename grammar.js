@@ -65,16 +65,23 @@ module.exports = grammar({
 		source_file: $ => seq(repeat(seq($.declaration, $._separator)), optional($.declaration)),
 
 		declaration: $ => choice(
-			$.import_declaration,
+			$.compiler_declaration,
 			$.procedure_declaration,
 			$.struct_declaration,
+			$.enum_declaration,
 			$.variable_declaration,
 			$.var_declaration,
 			$.const_declaration,
 			$.expression
 		),
 
-		import_declaration: $ => seq(
+		compiler_declaration: $ => choice(
+			$.import,
+			$.load,
+			seq('#', $.identifier)
+		),
+
+		import: $ => seq(
 			optional(seq($.identifier, "::")),
 			"#import",
 			optional(choice(
@@ -84,6 +91,12 @@ module.exports = grammar({
 			)),
 			$.string,
 		),
+
+		load: $ => seq(
+			"#load",
+			$.string,
+		),
+
 
 		procedure_declaration: $ => seq(
 			$.identifier,
@@ -160,6 +173,18 @@ module.exports = grammar({
 			'=',
 			commaSep1($.expression),
 		),
+
+		enum_declaration: $ => seq(
+			$.identifier,
+			'::',
+			'enum',
+			$.type,
+			optional($.specified_directive),
+			'{',
+			sep(seq($.identifier, optional(seq('::', $.expression))), ';'),
+			'}',
+		),
+		specified_directive: $ => '#specified',
 
 		var_declaration: $ => prec.left(seq(
 			commaSep1($.identifier),
@@ -282,11 +307,11 @@ module.exports = grammar({
 			$.procedure_declaration,
 			// $.overloaded_procedure_declaration,
 			$.struct_declaration,
-			// $.enum_declaration,
+			$.enum_declaration,
 			// $.union_declaration,
 			// $.bit_field_declaration,
 			$.const_declaration,
-			// $.import_declaration,
+			// $.import,
 			$.assignment_statement,
 			$.update_statement,
 			$.if_statement,

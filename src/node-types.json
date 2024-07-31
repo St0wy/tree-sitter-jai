@@ -4,15 +4,19 @@
     "named": true,
     "subtypes": [
       {
+        "type": "compiler_declaration",
+        "named": true
+      },
+      {
         "type": "const_declaration",
         "named": true
       },
       {
-        "type": "expression",
+        "type": "enum_declaration",
         "named": true
       },
       {
-        "type": "import_declaration",
+        "type": "expression",
         "named": true
       },
       {
@@ -139,6 +143,10 @@
       },
       {
         "type": "defer_statement",
+        "named": true
+      },
+      {
+        "type": "enum_declaration",
         "named": true
       },
       {
@@ -459,6 +467,29 @@
     }
   },
   {
+    "type": "compiler_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "import",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "const_declaration",
     "named": true,
     "fields": {},
@@ -528,6 +559,29 @@
       "types": [
         {
           "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "specified_directive",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -674,7 +728,7 @@
     }
   },
   {
-    "type": "import_declaration",
+    "type": "import",
     "named": true,
     "fields": {},
     "children": {
@@ -702,6 +756,21 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "load",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -1185,7 +1254,15 @@
     "named": false
   },
   {
+    "type": "#",
+    "named": false
+  },
+  {
     "type": "#import",
+    "named": false
+  },
+  {
+    "type": "#load",
     "named": false
   },
   {
@@ -1393,6 +1470,10 @@
     "named": false
   },
   {
+    "type": "enum",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
@@ -1402,11 +1483,11 @@
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "float32",
@@ -1467,6 +1548,10 @@
   {
     "type": "s8",
     "named": false
+  },
+  {
+    "type": "specified_directive",
+    "named": true
   },
   {
     "type": "string",

@@ -40,7 +40,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "import_declaration"
+          "name": "compiler_declaration"
         },
         {
           "type": "SYMBOL",
@@ -49,6 +49,10 @@
         {
           "type": "SYMBOL",
           "name": "struct_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_declaration"
         },
         {
           "type": "SYMBOL",
@@ -68,7 +72,33 @@
         }
       ]
     },
-    "import_declaration": {
+    "compiler_declaration": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "import"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "load"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "#"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "import": {
       "type": "SEQ",
       "members": [
         {
@@ -120,6 +150,19 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        }
+      ]
+    },
+    "load": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#load"
         },
         {
           "type": "SYMBOL",
@@ -796,6 +839,144 @@
           ]
         }
       ]
+    },
+    "enum_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "::"
+        },
+        {
+          "type": "STRING",
+          "value": "enum"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "specified_directive"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": "::"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "expression"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ";"
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "identifier"
+                              },
+                              {
+                                "type": "CHOICE",
+                                "members": [
+                                  {
+                                    "type": "SEQ",
+                                    "members": [
+                                      {
+                                        "type": "STRING",
+                                        "value": "::"
+                                      },
+                                      {
+                                        "type": "SYMBOL",
+                                        "name": "expression"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "BLANK"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "BLANK"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "specified_directive": {
+      "type": "STRING",
+      "value": "#specified"
     },
     "var_declaration": {
       "type": "PREC_LEFT",
@@ -2108,6 +2289,10 @@
           {
             "type": "SYMBOL",
             "name": "struct_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "enum_declaration"
           },
           {
             "type": "SYMBOL",

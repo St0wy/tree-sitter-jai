@@ -166,6 +166,10 @@
         "named": true
       },
       {
+        "type": "import",
+        "named": true
+      },
+      {
         "type": "procedure_declaration",
         "named": true
       },

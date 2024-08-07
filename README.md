@@ -4,6 +4,7 @@
 
 - [] #if
 - [] #string
+- [] Cast and auto cast
 - [] Most compiler directives
 
 ## Limitations

@@ -2300,6 +2300,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "import"
+          },
+          {
+            "type": "SYMBOL",
             "name": "assignment_statement"
           },
           {

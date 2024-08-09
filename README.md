@@ -2,10 +2,11 @@
 
 ## TODO
 
-- [] #if
-- [] #string
-- [] Cast and auto cast
-- [] Most compiler directives
+- [ ] #if
+- [ ] #string
+- [ ] Cast and auto cast
+- [ ] Most compiler directives
+- [ ] Everything else
 
 ## Limitations
 

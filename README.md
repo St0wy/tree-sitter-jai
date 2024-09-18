@@ -1,6 +1,8 @@
 # Tree Sitter Jai
 
-## TODO
+This project is far from being finished, and I'm not sure how much more energy I want to put in it, so any contributions are welcome ! 
+
+## Some things TODO
 
 - [ ] #if
 - [ ] #string
@@ -12,7 +14,7 @@
 
 This grammar cannot differentiate between passing the address of a variable or passing a pointer type.
 For example `proc(*Vector3)` could either mean a pointer to a variable called Vector3 or a type that is a pointer to a `Vector3`.
-This grammar considers those a always begin the "address" operator.
+This grammar considers those a always being the "address" operator.
 
 ## Getting Started
 
